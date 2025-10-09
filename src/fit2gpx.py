@@ -189,20 +189,23 @@ class Converter:
         # Step 3: Add points from dataframe to GPX track:
         for idx in df_points.index:
             # Create trackpoint:
-            if isnan(df_points.loc[idx, col_alt]):
-                track_point = gpxpy.gpx.GPXTrackPoint(
-                    latitude=df_points.loc[idx, col_lat],
-                    longitude=df_points.loc[idx, col_long],
-                    time=pd.Timestamp(df_points.loc[idx, col_time]) if col_time else None,
-                    # Do not include elevation if nan
-                )
-            else:
-                track_point = gpxpy.gpx.GPXTrackPoint(
-                    latitude=df_points.loc[idx, col_lat],
-                    longitude=df_points.loc[idx, col_long],
-                    time=pd.Timestamp(df_points.loc[idx, col_time]) if col_time else None,
-                    elevation=df_points.loc[idx, col_alt] if col_alt else None,
-                )
+            #if isnan(df_points.loc[idx, col_alt]):
+            #this block is Shift+tab to left
+            track_point = gpxpy.gpx.GPXTrackPoint(
+                latitude=df_points.loc[idx, col_lat],
+                longitude=df_points.loc[idx, col_long],
+                time=pd.Timestamp(df_points.loc[idx, col_time]) if col_time else None,
+                # Do not include elevation if nan
+            )
+            #end shifted block
+
+            #else:
+            #    track_point = gpxpy.gpx.GPXTrackPoint(
+            #        latitude=df_points.loc[idx, col_lat],
+            #        longitude=df_points.loc[idx, col_long],
+            #        time=pd.Timestamp(df_points.loc[idx, col_time]) if col_time else None,
+            #        elevation=df_points.loc[idx, col_alt] if col_alt else None,
+            #    )
 
             # add GPX extensions for heartrate and cadence
             if col_hr or col_cad:
@@ -254,9 +257,10 @@ class Converter:
             col_lat='latitude',
             col_long='longitude',
             col_time='timestamp',
-            col_alt='altitude',
-            col_hr='heart_rate',
-            col_cad='cadence',
+# Hide Heart Rate, Altitude, Cadence from result Part 2\1
+            #col_alt='altitude',
+            #col_hr='heart_rate',
+            #col_cad='cadence',
         )
 
         # Step 3: Save file
